@@ -2,9 +2,9 @@ HELP.md
 .gradle
 .DS_Store
 build/
-!gradle/wrapper/gradle-wrapper.jar
-!**/src/main/**/build/
-!**/src/test/**/build/
+gradle/wrapper/gradle-wrapper.jar
+**/src/main/**/build/
+**/src/test/**/build/
 
 ### STS ###
 .apt_generated
@@ -15,11 +15,10 @@ build/
 .springBeans
 .sts4-cache
 bin/
-!**/src/main/**/bin/
-!**/src/test/**/bin/
-
-!**/src/main/**/application.yml
-!**/src/test/**/application.yml
+**/src/main/**/bin/
+**/src/test/**/bin/
+**/src/main/**/application.yml
+**/src/test/**/application.yml
 
 ### IntelliJ IDEA ###
 .idea
