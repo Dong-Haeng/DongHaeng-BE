@@ -23,7 +23,7 @@ public class Answer {
     @Column
     private String content;
 
-    @JoinColumn(name = "applier_id")
     @ManyToOne
-    private Applier applier;
+    @JoinColumn(name = "apply_id")
+    private Apply apply;
 }

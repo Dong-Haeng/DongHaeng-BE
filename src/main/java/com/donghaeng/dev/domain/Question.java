@@ -26,7 +26,4 @@ public class Question {
     @JoinColumn(name = "crew_id")
     @ManyToOne
     private Crew crew;
-
-    @OneToOne
-    private Answer answer;
 }

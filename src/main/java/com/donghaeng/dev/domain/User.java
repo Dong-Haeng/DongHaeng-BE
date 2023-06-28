@@ -40,5 +40,8 @@ public class User extends BaseEntity {
     @OneToMany(mappedBy = "user")
     private List<Crew> crews = new ArrayList<>();
 
+    @OneToMany(mappedBy = "user")
+    private List<Apply> applys = new ArrayList<>();
+
 
 }

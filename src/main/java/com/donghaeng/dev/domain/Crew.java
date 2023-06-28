@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @AllArgsConstructor
@@ -15,10 +17,6 @@ public class Crew extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "crew_id")
     private Long id;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
 
     @Column(length = 45)
     private String name;
@@ -36,7 +34,14 @@ public class Crew extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private Status status;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
     @ManyToOne
     @JoinColumn(name = "university_id")
     private University university;
+
+    @OneToMany(mappedBy = "crew")
+    private List<Apply> applys = new ArrayList<>();
 }
