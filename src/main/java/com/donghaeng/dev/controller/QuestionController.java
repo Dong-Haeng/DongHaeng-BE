@@ -28,11 +28,8 @@ public class QuestionController {
     private final CrewRepository crewRepository;
     @PostMapping("/questions/{crewId}")
     public ResponseEntity<?> registerQuestions(@PathVariable Long crewId, @RequestBody List<QuestionDto> questionDtoList) {
-        log.info(String.valueOf(questionDtoList));
-        log.info(String.valueOf(crewId));
         Crew crew = crewRepository.findCrewById(crewId);
 
-        log.info("동아리 존재여부 확인: {}", crew.getId());
         if (crew != null) {
             questionService.registerQuestion(questionDtoList, crew);
             return ResponseEntity.ok().build();

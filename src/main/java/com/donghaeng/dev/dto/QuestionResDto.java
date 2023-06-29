@@ -1,5 +1,6 @@
 package com.donghaeng.dev.dto;
 
+import com.donghaeng.dev.domain.Apply;
 import com.donghaeng.dev.domain.Question;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,4 +18,6 @@ public class QuestionResDto {
         this.id = question.getId();
         this.content = question.getContent();
     }
+
+
 }
