@@ -17,21 +17,29 @@ public class Scheduler {
     private Long id;
 
     @Column
-    private String name;
+    private String identifier;
 
     @Column
     private String day;
+
+    @Column(length = 45)
+    private String name;
 
     @Column
     private String time;
 
     @Column
-    private String location;
+    private double starttime;
 
-    public Scheduler(String name, String day, String timeValue, String location) {
-        this.name = name;
+    @Column
+    private double endtime;
+
+    public Scheduler(String identifier, String name, String day, String timeValue, double starttime, double endtime) {
+        this.identifier = identifier;
         this.day = day;
+        this.name = name;
         this.time = timeValue;
-        this.location = location;
+        this.starttime = starttime;
+        this.endtime = endtime;
     }
 }

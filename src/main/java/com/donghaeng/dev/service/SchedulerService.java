@@ -1,8 +1,10 @@
 package com.donghaeng.dev.service;
 
 import com.donghaeng.dev.domain.Scheduler;
+import com.donghaeng.dev.dto.PostSchedulerDto;
 import com.donghaeng.dev.repository.SchedulerRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -20,7 +22,9 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class SchedulerService {
@@ -29,11 +33,13 @@ public class SchedulerService {
 
     private final String url = "https://api.everytime.kr/find/timetable/table/friend";
 
-    public String fetchAndSaveTimetable(String identifier, boolean friendInfo) {
+    public List<PostSchedulerDto> fetchAndSaveTimetable(String identifier, boolean friendInfo) {
         String response = fetchTimetable(identifier, friendInfo);
-        List<Scheduler> schedulers = parseSchedules(response);
-        saveSchedules(schedulers);
-        return response;
+        List<Scheduler> schedulers = parseSchedules(identifier, response);
+        return saveSchedules(schedulers)
+                .stream()
+                .map(PostSchedulerDto::new)
+                .collect(Collectors.toList());
     }
 
     public String fetchTimetable(String identifier, boolean friendInfo) {
@@ -64,7 +70,7 @@ public class SchedulerService {
         return response;
     }
 
-    private List<Scheduler> parseSchedules(String response) {
+    private List<Scheduler> parseSchedules(String identifier, String response) {
         List<Scheduler> schedules = new ArrayList<>();
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -77,7 +83,8 @@ public class SchedulerService {
 
             for (int i = 0; i < subjectNodes.getLength(); i++) {
                 Element subjectElement = (Element) subjectNodes.item(i);
-                String name = subjectElement.getAttribute("name");
+                String name = subjectElement.getElementsByTagName("name").item(0).getAttributes().getNamedItem("value").getNodeValue();
+                log.info("name = {}", name);
 
                 NodeList timeNodes = subjectElement.getElementsByTagName("time");
                 for (int j = 0; j < timeNodes.getLength(); j++) {
@@ -88,9 +95,9 @@ public class SchedulerService {
                     for (int k = 0; k < dataNodes.getLength(); k++) {
                         Element dataElement = (Element) dataNodes.item(k);
                         String day = dataElement.getAttribute("day");
-                        String location = dataElement.getAttribute("location");
-
-                        Scheduler scheduler = new Scheduler(name, day, timeValue, location);
+                        double starttime = Double.parseDouble(dataElement.getAttribute("starttime")) / 12;
+                        double endtime = Double.parseDouble(dataElement.getAttribute("endtime")) / 12;
+                        Scheduler scheduler = new Scheduler(identifier, name, day, timeValue, starttime, endtime);
                         schedules.add(scheduler);
                     }
                 }
@@ -101,7 +108,7 @@ public class SchedulerService {
         return schedules;
     }
 
-    private void saveSchedules(List<Scheduler> schedulers) {
-        schedulerRepository.saveAll(schedulers);
+    private List<Scheduler> saveSchedules(List<Scheduler> schedulers) {
+        return schedulerRepository.saveAll(schedulers);
     }
 }
