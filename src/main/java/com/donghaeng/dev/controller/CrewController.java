@@ -1,5 +1,6 @@
 package com.donghaeng.dev.controller;
 
+import com.donghaeng.dev.domain.Division;
 import com.donghaeng.dev.domain.User;
 import com.donghaeng.dev.dto.CrewListResponseDto;
 import com.donghaeng.dev.dto.CrewRegisterRequestDto;
@@ -11,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.Optional;
 
 @Slf4j
 @RestController
@@ -33,8 +35,8 @@ public class CrewController {
     }
 
     @GetMapping("/crews")
-    public ResponseEntity<CrewListResponseDto> get() {
+    public ResponseEntity<CrewListResponseDto> get(@RequestParam Optional<Division> division, @RequestParam Optional<Boolean> isRecruiting) {
         User user = (User) session.getAttribute("user");
-        return new ResponseEntity<>(crewService.findAllDesc(user.getUniversity()), HttpStatus.OK);
+        return new ResponseEntity<>(crewService.findAllDesc(user.getUniversity(), division, isRecruiting), HttpStatus.OK);
     }
 }
