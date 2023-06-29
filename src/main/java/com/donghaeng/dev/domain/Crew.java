@@ -1,5 +1,6 @@
 package com.donghaeng.dev.domain;
 
+import com.donghaeng.dev.dto.CrewRegisterRequestDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,6 +29,10 @@ public class Crew extends BaseEntity {
 
     @Column(length = 45)
     @Enumerated(EnumType.STRING)
+    private University university;
+
+    @Column(length = 45)
+    @Enumerated(EnumType.STRING)
     private Division division;
 
     @Column(length = 45)
@@ -38,10 +43,16 @@ public class Crew extends BaseEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @Column(length = 45)
-    @Enumerated(EnumType.STRING)
-    private University university;
-
     @OneToMany(mappedBy = "crew")
     private List<Apply> applys = new ArrayList<>();
+
+    public Crew(User user, CrewRegisterRequestDto crewRegisterRequestDto) {
+        this.name = crewRegisterRequestDto.getName();
+        this.description = crewRegisterRequestDto.getDescription();
+        this.isRecruiting = crewRegisterRequestDto.isRecruiting();
+        this.university = user.getUniversity();
+        this.division = crewRegisterRequestDto.getDivision();
+        this.status = Status.PENDING;
+        this.user = user;
+    }
 }
