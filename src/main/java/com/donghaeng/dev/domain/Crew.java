@@ -38,8 +38,8 @@ public class Crew extends BaseEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne
-    @JoinColumn(name = "university_id")
+    @Column(length = 45)
+    @Enumerated(EnumType.STRING)
     private University university;
 
     @OneToMany(mappedBy = "crew")

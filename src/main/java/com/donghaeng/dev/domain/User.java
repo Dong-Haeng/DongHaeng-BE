@@ -33,8 +33,8 @@ public class User extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    @ManyToOne
-    @JoinColumn(name = "university_id")
+    @Column(length = 45)
+    @Enumerated(EnumType.STRING)
     private University university;
 
     @OneToMany(mappedBy = "user")
