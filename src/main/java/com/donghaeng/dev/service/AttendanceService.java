@@ -35,6 +35,18 @@ public class AttendanceService {
         attendanceMap.clear();
     }
 
+    public boolean processAttendance(User user, String code) {
+        if (code.equals(attendanceCode)) {
+            attendanceMap.put(user.getName(), LocalDateTime.now());
+            return true;
+        }
+        return false;
+    }
+
+    public HashMap<String, LocalDateTime> requestAttendanceSheet() {
+        return attendanceMap;
+    }
+
     public String generateCode() {
         int leftLimit = 97; // letter 'a'
         int rightLimit = 122; // letter 'z'
