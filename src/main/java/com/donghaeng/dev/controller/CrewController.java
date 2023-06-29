@@ -18,7 +18,6 @@ import javax.servlet.http.HttpSession;
 public class CrewController {
 
     private final CrewService crewService;
-    HttpSession session;
 
     @GetMapping("/hello")
     public String hello() {
@@ -26,7 +25,7 @@ public class CrewController {
     }
 
     @PostMapping("/crews")
-    public ResponseEntity<Long> register(@RequestBody CrewRegisterRequestDto crewRegisterDto) {
+    public ResponseEntity<Long> register(@RequestBody CrewRegisterRequestDto crewRegisterDto, HttpSession session) {
         User user = (User) session.getAttribute("user");
         return new ResponseEntity<>(crewService.register(user, crewRegisterDto), HttpStatus.OK);
     }
