@@ -23,15 +23,15 @@ public class ApplyController {
 
     @PostMapping("/{crewId}")
     public ResponseEntity<?> apply(@PathVariable Long crewId, @RequestBody ApplyRequestDto applyRequestDto, HttpSession session) {
-        User user = (User) session.getAttribute("user");
+        Long userId = (Long) session.getAttribute("userId");
         List<String> answers = applyRequestDto.getAnswers();
-        return applyService.apply(user, crewId, answers);
+        return applyService.apply(userId, crewId, answers);
     }
+
     @GetMapping("/{crewId}/applicants")
     public ResponseEntity<List<ApplyResDto>> getApplicants(@PathVariable Long crewId) {
         List<ApplyResDto> applicants = applyService.getApplicantsByCrew(crewId);
         return ResponseEntity.ok(applicants);
     }
-
-
 }
+

@@ -24,7 +24,7 @@ public class AnswerController {
     private final CrewRepository crewRepository;
     @PostMapping("/{crewId}/answer")
     public ResponseEntity<?>answer (@PathVariable Long crewId , @RequestBody List<AnswerDto> answerDto){
-        AnswerService.registerAnswer(answerDto,crewId);
+        //AnswerService.registerAnswer(answerDto,crewId);
         return ResponseEntity.ok().build();
     }
 }

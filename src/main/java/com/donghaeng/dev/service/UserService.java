@@ -62,7 +62,9 @@ public class UserService {
             if (user.getPassword().equals(userLoginDto.getPassword())) {
                 if (user.getCrews().isEmpty()) {
                     log.info("일반회원");
-                    session.setAttribute("user", user);
+
+                    session.setAttribute("userId", user.getId());
+
                     return UserResDto.builder()
                             .id(user.getId())
                             .name(user.getName())
@@ -75,7 +77,7 @@ public class UserService {
                             .build();
                 } else {
                     log.info("동아리 임원");
-                    session.setAttribute("user", user);
+                    session.setAttribute("userId", user.getId());
                     return UserResDto.builder()
                             .id(user.getId())
                             .name(user.getName())
@@ -91,7 +93,5 @@ public class UserService {
         }
         return null;
     }
-
-
 
 }
