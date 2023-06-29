@@ -1,6 +1,7 @@
 package com.donghaeng.dev.controller;
 
 import com.donghaeng.dev.domain.User;
+import com.donghaeng.dev.dto.CrewListResponseDto;
 import com.donghaeng.dev.dto.CrewRegisterRequestDto;
 import com.donghaeng.dev.service.CrewService;
 import lombok.RequiredArgsConstructor;
@@ -29,5 +30,11 @@ public class CrewController {
     public ResponseEntity<Long> register(@RequestBody CrewRegisterRequestDto crewRegisterDto) {
         User user = (User) session.getAttribute("user");
         return new ResponseEntity<>(crewService.register(user, crewRegisterDto), HttpStatus.OK);
+    }
+
+    @GetMapping("/crews")
+    public ResponseEntity<CrewListResponseDto> get() {
+        User user = (User) session.getAttribute("user");
+        return new ResponseEntity<>(crewService.findAllDesc(user.getUniversity()), HttpStatus.OK);
     }
 }
