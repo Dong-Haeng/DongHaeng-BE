@@ -28,7 +28,7 @@ public class Crew extends BaseEntity {
 
     @Column(length = 45)
     @Enumerated(EnumType.STRING)
-    Division division;
+    private Division division;
 
     @Column(length = 45)
     @Enumerated(EnumType.STRING)

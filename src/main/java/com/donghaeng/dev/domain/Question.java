@@ -18,9 +18,6 @@ public class Question {
     private Long id;
 
     @Column
-    private String type;
-
-    @Column
     private String content;
 
     @JoinColumn(name = "crew_id")

@@ -17,9 +17,6 @@ public class Answer {
     @Column(name = "answer_id")
     private Long id;
 
-    @OneToOne
-    private Question question;
-
     @Column
     private String content;
 

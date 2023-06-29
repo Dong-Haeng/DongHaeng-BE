@@ -18,7 +18,7 @@ public class Apply extends BaseEntity {
     @Column(name = "apply_id")
     private Long id;
 
-    @Column
+    @Column(length = 45)
     private String studentId;
 
     @Enumerated(EnumType.STRING)
