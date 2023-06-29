@@ -12,11 +12,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
-@RestController
 @RequiredArgsConstructor
+@RestController
 @RequestMapping("/api")
 public class CrewController {
 
@@ -28,14 +29,16 @@ public class CrewController {
     }
 
     @PostMapping("/crews")
-    public ResponseEntity<Long> register(@RequestBody CrewRegisterRequestDto crewRegisterDto, HttpSession session) {
+    public ResponseEntity<Long> register(@RequestBody CrewRegisterRequestDto crewRegisterRequestDto, HttpSession session) {
         User user = (User) session.getAttribute("user");
-        return new ResponseEntity<>(crewService.register(user, crewRegisterDto), HttpStatus.OK);
+        return new ResponseEntity<>(crewService.register(user, crewRegisterRequestDto), HttpStatus.OK);
     }
 
     @GetMapping("/crews")
-    public ResponseEntity<CrewListResponseDto> get(@RequestParam Optional<Division> division, @RequestParam Optional<Boolean> isRecruiting, HttpSession session) {
+    public ResponseEntity<List<CrewListResponseDto>> get(@RequestParam Optional<Division> division, @RequestParam Optional<Boolean> isRecruiting, HttpSession session) {
+
         User user = (User) session.getAttribute("user");
+        log.info("user name = {}, email = {}", user.getName(), user.getEmail());
         return new ResponseEntity<>(crewService.findAllDesc(user.getUniversity(), division, isRecruiting), HttpStatus.OK);
     }
 }
