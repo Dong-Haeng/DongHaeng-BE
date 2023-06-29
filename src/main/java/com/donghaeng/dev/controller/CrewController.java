@@ -31,12 +31,7 @@ public class CrewController {
     @PostMapping("/crews")
     public ResponseEntity<Long> register(@RequestBody CrewRegisterRequestDto crewRegisterRequestDto, HttpSession session) {
         User user = (User) session.getAttribute("user");
-<<<<<<< HEAD
         return new ResponseEntity<>(crewService.register(user, crewRegisterRequestDto), HttpStatus.OK);
-=======
-        log.info("user name = {}, email = {}, isRecruiting = {}", user.getName(), user.getEmail(), crewRegisterDto.isRecruiting());
-        return new ResponseEntity<>(crewService.register(user, crewRegisterDto), HttpStatus.OK);
->>>>>>> bab709fdb39d4d58a032248bac2d6fb1607bc4ba
     }
 
     @GetMapping("/crews")
