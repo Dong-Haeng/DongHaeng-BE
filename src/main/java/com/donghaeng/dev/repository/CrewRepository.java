@@ -8,17 +8,23 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CrewRepository extends JpaRepository<Crew, Long> {
 
     List<Crew> findAllByUniversity(University university);
 
-    @Query("select c from Crew c where c.university =:univesity and c.isRecruiting =:isRecruiting")
+    @Query("select c from Crew c where c.university =:university and c.isRecruiting =:isRecruiting")
     List<Crew> findAllByUniversityFilterIsRecruiting(@Param("university")University university,
                                                      @Param("isRecruiting") Boolean isRecruiting);
 
-    @Query("select c from Crew c where c.university =:univesity and c.isRecruiting =:isRecruiting and c.division =:division")
+    @Query("select c from Crew c where c.university =:university and c.isRecruiting =:isRecruiting and c.division =:division")
     List<Crew> findAllByUniversityFilterByDivisionAndIsRecruiting(@Param("university")University university,
                                                                   @Param("division") Division division,
                                                                   @Param("isRecruiting") Boolean isRecruiting);
+
+    @Query("select c from Crew c where c.university =:university and c.division =:division")
+    List<Crew> findAllByUniversityFilterByDivision(@Param("university")University university,
+                                                                  @Param("division") Division division);
+
 }

@@ -37,10 +37,10 @@ public class User extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private University university;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Crew> crews = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Apply> applys = new ArrayList<>();
 
     @Builder

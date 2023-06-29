@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -28,17 +29,29 @@ public class CrewService {
         return crewRepository.save(crew).getId();
     }
 
-    public CrewListResponseDto findAllDesc(University university, Optional<Division> division, Optional<Boolean> isRecruiting) {
+    public List<CrewListResponseDto> findAllDesc(University university, Optional<Division> division, Optional<Boolean> isRecruiting) {
         if (division.isEmpty() && isRecruiting.isEmpty()) {
-            List<Crew> crews = crewRepository.findAllByUniversity(university);
-            return new CrewListResponseDto(crews);
+            return crewRepository.findAllByUniversity(university)
+                    .stream()
+                    .map(CrewListResponseDto::new)
+                    .collect(Collectors.toList());
         }
         else if (division.isEmpty()) {
-            List<Crew> crews = crewRepository.findAllByUniversityFilterIsRecruiting(university, isRecruiting.get());
-            return new CrewListResponseDto(crews);
+            return crewRepository.findAllByUniversityFilterIsRecruiting(university, isRecruiting.get())
+                    .stream()
+                    .map(CrewListResponseDto::new)
+                    .collect(Collectors.toList());
         }
+        else if (isRecruiting.isEmpty()) {
+            return crewRepository.findAllByUniversityFilterByDivision(university, division.get())
+                    .stream()
+                    .map(CrewListResponseDto::new)
+                    .collect(Collectors.toList());
+        }
+        return crewRepository.findAllByUniversityFilterByDivisionAndIsRecruiting(university, division.get(), isRecruiting.get())
+                .stream()
+                .map(CrewListResponseDto::new)
+                .collect(Collectors.toList());
 
-        List<Crew> crews = crewRepository.findAllByUniversityFilterByDivisionAndIsRecruiting(university, division.get(), isRecruiting.get());
-        return new CrewListResponseDto(crews);
     }
 }

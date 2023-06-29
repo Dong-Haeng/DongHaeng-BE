@@ -4,11 +4,13 @@ import com.donghaeng.dev.dto.CrewRegisterRequestDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -39,14 +41,18 @@ public class Crew extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
     @OneToMany(mappedBy = "crew")
     private List<Apply> applys = new ArrayList<>();
 
+    @OneToMany(mappedBy = "crew")
+    private List<Question> questions = new ArrayList<>();
+
     public Crew(User user, CrewRegisterRequestDto crewRegisterRequestDto) {
+        log.info("user = {}", user.getEmail());
         this.name = crewRegisterRequestDto.getName();
         this.description = crewRegisterRequestDto.getDescription();
         this.isRecruiting = crewRegisterRequestDto.isRecruiting();
