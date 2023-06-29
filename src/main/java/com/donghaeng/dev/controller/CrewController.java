@@ -15,8 +15,8 @@ import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
 @Slf4j
-@RestController
 @RequiredArgsConstructor
+@RestController
 @RequestMapping("/api")
 public class CrewController {
 
@@ -28,9 +28,9 @@ public class CrewController {
     }
 
     @PostMapping("/crews")
-    public ResponseEntity<Long> register(@RequestBody CrewRegisterRequestDto crewRegisterDto, HttpSession session) {
+    public ResponseEntity<Long> register(@RequestBody CrewRegisterRequestDto crewRegisterRequestDto, HttpSession session) {
         User user = (User) session.getAttribute("user");
-        return new ResponseEntity<>(crewService.register(user, crewRegisterDto), HttpStatus.OK);
+        return new ResponseEntity<>(crewService.register(user, crewRegisterRequestDto), HttpStatus.OK);
     }
 
     @GetMapping("/crews")

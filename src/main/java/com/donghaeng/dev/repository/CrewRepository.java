@@ -13,11 +13,11 @@ public interface CrewRepository extends JpaRepository<Crew, Long> {
 
     List<Crew> findAllByUniversity(University university);
 
-    @Query("select c from Crew c where c.university =:univesity and c.isRecruiting =:isRecruiting")
+    @Query("select c from Crew c where c.university =:university and c.isRecruiting =:isRecruiting")
     List<Crew> findAllByUniversityFilterIsRecruiting(@Param("university")University university,
                                                      @Param("isRecruiting") Boolean isRecruiting);
 
-    @Query("select c from Crew c where c.university =:univesity and c.isRecruiting =:isRecruiting and c.division =:division")
+    @Query("select c from Crew c where c.university =:university and c.isRecruiting =:isRecruiting and c.division =:division")
     List<Crew> findAllByUniversityFilterByDivisionAndIsRecruiting(@Param("university")University university,
                                                                   @Param("division") Division division,
                                                                   @Param("isRecruiting") Boolean isRecruiting);
