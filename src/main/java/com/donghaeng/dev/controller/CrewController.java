@@ -13,11 +13,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
-@RestController
 @RequiredArgsConstructor
+@RestController
 @RequestMapping("/api")
 public class CrewController {
 
@@ -30,6 +31,7 @@ public class CrewController {
     }
 
     @PostMapping("/crews")
+
     public ResponseEntity<Long> register(@RequestBody CrewRegisterRequestDto crewRegisterDto, HttpSession session) {
         Long userId = (Long) session.getAttribute("userId");
         Optional<User> userOptional = userRepository.findById(userId);
@@ -51,5 +53,6 @@ public class CrewController {
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
+    
     }
 }
