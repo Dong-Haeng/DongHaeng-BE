@@ -64,6 +64,7 @@ public class UserService {
                     log.info("일반회원");
 
                     session.setAttribute("userId", user.getId());
+                    log.info(String.valueOf(session));
 
                     return UserResDto.builder()
                             .id(user.getId())
@@ -77,6 +78,7 @@ public class UserService {
                             .build();
                 } else {
                     log.info("동아리 임원");
+                    log.info(String.valueOf(session));
                     session.setAttribute("userId", user.getId());
                     return UserResDto.builder()
                             .id(user.getId())
