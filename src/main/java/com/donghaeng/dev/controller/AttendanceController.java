@@ -23,4 +23,16 @@ public class AttendanceController {
     public ResponseEntity<Boolean> isAttendanceInProgress() {
         return new ResponseEntity<>(attendanceService.isAttendanceInProgress(), HttpStatus.OK);
     }
+
+
+    @PostMapping("/attendance/open")
+    public ResponseEntity<String> startAttendance() {
+        return new ResponseEntity<>(attendanceService.startAttendance(), HttpStatus.OK);
+    }
+
+    @PostMapping("/attendance/close")
+    public ResponseEntity endAttendance() {
+        attendanceService.endAttendance();
+        return new ResponseEntity(HttpStatus.OK);
+    }
 }

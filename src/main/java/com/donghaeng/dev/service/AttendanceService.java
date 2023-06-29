@@ -23,4 +23,28 @@ public class AttendanceService {
         if (isProgressing) return true;
         return false;
     }
+
+    public String startAttendance() {
+        attendanceCode = generateCode();
+        isProgressing = true;
+        attendanceMap = new HashMap<>();
+        return attendanceCode;
+    }
+    public void endAttendance() {
+        isProgressing = false;
+        attendanceMap.clear();
+    }
+
+    public String generateCode() {
+        int leftLimit = 97; // letter 'a'
+        int rightLimit = 122; // letter 'z'
+        int targetStringLength = 6;
+        Random random = new Random();
+
+        String generatedString = random.ints(leftLimit, rightLimit + 1)
+                .limit(targetStringLength)
+                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+                .toString();
+        return generatedString;
+    }
 }
