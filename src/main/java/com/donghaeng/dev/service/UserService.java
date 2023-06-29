@@ -41,12 +41,7 @@ public class UserService {
             userRepository.save(newUser);
 
             return UserResDto.builder()
-                    .name(newUser.getName())
-                    .email(newUser.getEmail())
-                    .password(newUser.getPassword())
-                    .phone(newUser.getPhone())
-                    .status(newUser.getStatus())
-                    .university(newUser.getUniversity())
+                    .id(newUser.getId())
                     .build();
         } else {
             throw new IllegalArgumentException("이미 존재하는 회원");
@@ -65,12 +60,6 @@ public class UserService {
                     session.setAttribute("user", user);
                     return UserResDto.builder()
                             .id(user.getId())
-                            .name(user.getName())
-                            .email(user.getEmail())
-                            .password(user.getPassword())
-                            .phone(user.getPhone())
-                            .status(user.getStatus())
-                            .university(user.getUniversity())
                             .isPresident(false)
                             .build();
                 } else {
@@ -78,12 +67,6 @@ public class UserService {
                     session.setAttribute("user", user);
                     return UserResDto.builder()
                             .id(user.getId())
-                            .name(user.getName())
-                            .email(user.getEmail())
-                            .password(user.getPassword())
-                            .phone(user.getPhone())
-                            .status(user.getStatus())
-                            .university(user.getUniversity())
                             .isPresident(true)
                             .build();
                 }

@@ -28,6 +28,7 @@ public class Crew extends BaseEntity {
     private String description;
 
     private boolean isRecruiting;
+    private boolean isCentralCrew;
 
     @Column(length = 45)
     @Enumerated(EnumType.STRING)

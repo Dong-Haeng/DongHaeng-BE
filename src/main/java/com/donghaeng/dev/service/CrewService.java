@@ -21,7 +21,6 @@ import java.util.stream.Collectors;
 @Service
 public class CrewService {
 
-    private final UserRepository userRepository;
     private final CrewRepository crewRepository;
 
     public Long register(User user, CrewRegisterRequestDto crewRegisterDto) {

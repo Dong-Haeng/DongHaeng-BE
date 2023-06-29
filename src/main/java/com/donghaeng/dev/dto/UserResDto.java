@@ -14,22 +14,10 @@ import lombok.Setter;
 public class UserResDto {
 
     private Long id;
-    private String name;
-    private String email;
-    private String password;
-    private String phone;
-    private Status status;
-    private University university;
     private boolean isPresident;
 
-    public UserResDto(Long id, String name, String email, String password, String phone, Status status, University university, boolean isPresident) {
+    public UserResDto(Long id, boolean isPresident) {
         this.id = id;
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.phone = phone;
-        this.status = status;
-        this.university = university;
         this.isPresident = isPresident;
     }
 }

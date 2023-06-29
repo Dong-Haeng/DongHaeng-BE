@@ -31,6 +31,7 @@ public class CrewController {
     @PostMapping("/crews")
     public ResponseEntity<Long> register(@RequestBody CrewRegisterRequestDto crewRegisterRequestDto, HttpSession session) {
         User user = (User) session.getAttribute("user");
+
         return new ResponseEntity<>(crewService.register(user, crewRegisterRequestDto), HttpStatus.OK);
     }
 
