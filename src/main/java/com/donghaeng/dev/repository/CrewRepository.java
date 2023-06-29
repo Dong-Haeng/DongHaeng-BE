@@ -23,8 +23,9 @@ public interface CrewRepository extends JpaRepository<Crew, Long> {
                                                                   @Param("division") Division division,
                                                                   @Param("isRecruiting") Boolean isRecruiting);
 
+    Crew findCrewById(@Param("crew_id") Long crewId);
+  
     @Query("select c from Crew c where c.university =:university and c.division =:division")
     List<Crew> findAllByUniversityFilterByDivision(@Param("university")University university,
                                                                   @Param("division") Division division);
-
 }

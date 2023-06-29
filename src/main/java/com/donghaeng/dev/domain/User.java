@@ -43,6 +43,7 @@ public class User extends BaseEntity {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Apply> applys = new ArrayList<>();
 
+
     @Builder
     public User(Long id, String name, String email, String password, String phone, Status status, University university, List<Crew> crews, List<Apply> applys) {
         this.id = id;

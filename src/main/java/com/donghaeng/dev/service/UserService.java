@@ -34,7 +34,7 @@ public class UserService {
                     .email(userSignUpDto.getEmail())
                     .password(userSignUpDto.getPassword())
                     .phone(userSignUpDto.getPhone())
-                    .status(Status.PENDING)
+                    .status(Status.ACTIVE)
                     .university(userSignUpDto.getUniversity())
                     .build();
 
