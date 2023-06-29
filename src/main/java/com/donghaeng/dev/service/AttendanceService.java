@@ -48,8 +48,8 @@ public class AttendanceService {
     }
 
     public String generateCode() {
-        int leftLimit = 97; // letter 'a'
-        int rightLimit = 122; // letter 'z'
+        int leftLimit = '0'; // letter 'a'
+        int rightLimit = '9'; // letter 'z'
         int targetStringLength = 6;
         Random random = new Random();
 
