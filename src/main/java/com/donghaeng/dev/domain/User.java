@@ -1,6 +1,6 @@
 package com.donghaeng.dev.domain;
 
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -10,7 +10,6 @@ import java.util.List;
 
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 public class User extends BaseEntity {
 
@@ -24,6 +23,7 @@ public class User extends BaseEntity {
     @Column(length = 45)
     private String email;
 
+    @Column(length = 45)
     private String password;
 
     @Column(length = 45)
@@ -42,4 +42,17 @@ public class User extends BaseEntity {
 
     @OneToMany(mappedBy = "user")
     private List<Apply> applys = new ArrayList<>();
+
+    @Builder
+    public User(Long id, String name, String email, String password, String phone, Status status, University university, List<Crew> crews, List<Apply> applys) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.phone = phone;
+        this.status = status;
+        this.university = university;
+        this.crews = crews;
+        this.applys = applys;
+    }
 }
