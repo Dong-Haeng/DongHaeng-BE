@@ -3,6 +3,7 @@ package com.donghaeng.dev.repository;
 import com.donghaeng.dev.domain.Crew;
 import com.donghaeng.dev.domain.Division;
 import com.donghaeng.dev.domain.University;
+import com.donghaeng.dev.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -24,4 +25,5 @@ public interface CrewRepository extends JpaRepository<Crew, Long> {
                                                                   @Param("isRecruiting") Boolean isRecruiting);
 
     Crew findCrewById(@Param("crew_id") Long crewId);
+    Crew findCrewByUser(User user);
 }
