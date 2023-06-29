@@ -1,6 +1,8 @@
 package com.donghaeng.dev.controller;
 
+import com.donghaeng.dev.domain.Division;
 import com.donghaeng.dev.domain.User;
+import com.donghaeng.dev.dto.CrewListResponseDto;
 import com.donghaeng.dev.dto.CrewRegisterRequestDto;
 import com.donghaeng.dev.service.CrewService;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.Optional;
 
 @Slf4j
 @RestController
@@ -28,5 +31,11 @@ public class CrewController {
     public ResponseEntity<Long> register(@RequestBody CrewRegisterRequestDto crewRegisterDto, HttpSession session) {
         User user = (User) session.getAttribute("user");
         return new ResponseEntity<>(crewService.register(user, crewRegisterDto), HttpStatus.OK);
+    }
+
+    @GetMapping("/crews")
+    public ResponseEntity<CrewListResponseDto> get(@RequestParam Optional<Division> division, @RequestParam Optional<Boolean> isRecruiting, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        return new ResponseEntity<>(crewService.findAllDesc(user.getUniversity(), division, isRecruiting), HttpStatus.OK);
     }
 }
