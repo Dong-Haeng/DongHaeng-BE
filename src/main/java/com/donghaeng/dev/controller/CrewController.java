@@ -34,7 +34,7 @@ public class CrewController {
     }
 
     @GetMapping("/crews")
-    public ResponseEntity<CrewListResponseDto> get(@RequestParam Optional<Division> division, @RequestParam Optional<Boolean> isRecruiting) {
+    public ResponseEntity<CrewListResponseDto> get(@RequestParam Optional<Division> division, @RequestParam Optional<Boolean> isRecruiting, HttpSession session) {
         User user = (User) session.getAttribute("user");
         return new ResponseEntity<>(crewService.findAllDesc(user.getUniversity(), division, isRecruiting), HttpStatus.OK);
     }
