@@ -32,6 +32,6 @@ public class Apply extends BaseEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "applier")
+    @OneToMany(mappedBy = "apply")
     private List<Answer> answers;
 }
