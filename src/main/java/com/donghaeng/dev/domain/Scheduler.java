@@ -34,6 +34,9 @@ public class Scheduler {
     @Column
     private double endtime;
 
+    @ManyToOne
+    private Member member;
+
     public Scheduler(String identifier, String name, String day, String timeValue, double starttime, double endtime) {
         this.identifier = identifier;
         this.day = day;
